@@ -2,7 +2,6 @@
 session_start(); 
 require_once 'calibrary.php';  
 
-// Ensure the user is logged in
 if (!isset($_SESSION["user"])) {
     echo "You need to be logged in to reserve a book.";
     exit; 

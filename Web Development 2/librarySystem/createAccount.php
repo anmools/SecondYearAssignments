@@ -1,6 +1,5 @@
 <?php
 session_start();
-
 require_once 'calibrary.php';
 
 $error_message = '';
@@ -19,24 +18,46 @@ if (isset($_POST['create'])) {
     $telephone = $_POST['tp'];
     $mobile = $_POST['mb'];
 
-    if (empty($username) ||empty($email) || empty($password) || empty($confirm_password) || empty($first_name) || empty($last_name) || empty($address1) || empty($city) || empty($telephone) || empty($mobile)) {
+    // Check if any required field is empty
+    if (empty($username) || empty($email) || empty($password) || empty($confirm_password) || empty($first_name) || empty($last_name) || empty($address1) || empty($city) || empty($telephone) || empty($mobile)) {
         $error_message = 'Please fill in all the fields.';
-    } elseif ($password !== $confirm_password) {
+    }
+    // Check if the passwords match
+    elseif ($password !== $confirm_password) {
         $error_message = 'Passwords do not match.';
-    } else {
+    } 
+    elseif(strlen($password) !=6) {
+        $error_message = 'Password must be 6 characters long.';
+    }
+    elseif(strlen($telephone) !=10) {
+        $error_message = 'Telephone must be 10 digits long.';
+    }
+    elseif(strlen($mobile) !=10) {
+        $error_message = 'Mobile must be 10 digits long.';
+    }
+    else {
+        // Check if the username already exists
+        $sql_check_username = "SELECT * FROM users WHERE Username = '$username'";
+        $result = $conn->query($sql_check_username);
 
-        $sql = "INSERT INTO users (Username, Email, Pass, Firstname, Surname, Addressline1, Addressline2, City, Telephone, Mobile) VALUES ('$username','$email', '$password', '$first_name', '$last_name', '$address1', '$address2', '$city', '$telephone', '$mobile')";
-
-        if ($conn->query($sql) === TRUE) {
-            $success_message = 'Account created successfully!';
+        if ($result->num_rows > 0) {
+            $error_message = 'Username is already taken, please choose another one.';
         } else {
-            $error_message = 'Error: ' . $conn->error;
-        }
+            // Insert the new user into the database
+            $sql = "INSERT INTO users (Username, Email, Pass, Firstname, Surname, Addressline1, Addressline2, City, Telephone, Mobile) 
+                    VALUES ('$username','$email', '$password', '$first_name', '$last_name', '$address1', '$address2', '$city', '$telephone', '$mobile')";
 
+            if ($conn->query($sql) === TRUE) {
+                $success_message = 'Account created successfully!';
+            } else {
+                $error_message = 'Error: ' . $conn->error;
+            }
+        }
         $conn->close();
     }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">

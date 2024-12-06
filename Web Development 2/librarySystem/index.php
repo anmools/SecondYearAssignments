@@ -8,9 +8,7 @@
 </head>
 <body>
     <header>
-    <form action="logout.php" method="POST" class="logout-form">
-            <button type="submit" name="logout" class="logout-btn">Logout</button>
-        </form>
+    <?php include('header.php'); ?>
 
         <h1>Welcome to the Library</h1>
     </header>

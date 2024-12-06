@@ -7,13 +7,10 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<a href="index.php" class="back-button-link">
-    <button class="back-button">Back to Home</button>
-</a>
+<?php include('header.php'); ?>
 <?php
 require_once 'calibrary.php';
 
-session_start();
 $user_id = isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 
 $title = isset($_GET['title']) ? $_GET['title'] : '';
 $category = isset($_GET['category']) ? $_GET['category'] : '';

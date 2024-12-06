@@ -7,11 +7,8 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+<?php include('header.php'); ?>
 
-    <!-- Back Button -->
-    <a href="index.php" class="back-button-link">
-        <button class="back-button">Back to Home</button>
-    </a>
     <header>
         <h1>Search for a Book</h1>
     </header>
@@ -31,7 +28,6 @@
                         session_start();
                         require_once 'calibrary.php';
                         
-                        // Fetch all categories from the database
                         $sql = "SELECT CategoryID, CategoryDescription FROM category";
                         $select_result = $conn->query($sql);
                         if ($select_result->num_rows > 0) {
@@ -48,7 +44,6 @@
         </form>
     </div>
 
-<?php include('footer.php'); ?>
-
+    <?php include('footer.php'); ?> 
 </body>
 </html>

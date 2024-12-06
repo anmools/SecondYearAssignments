@@ -1,15 +1,15 @@
+<?php include('header.php'); ?>
 <?php
-session_start();
 require_once 'calibrary.php';
 
 if (!isset($_SESSION["user"])) {
     echo "You need to be logged in to reserve a book.";
-    exit;  
+    exit;
 } else {
-    $username = $_SESSION["user"]; 
+    $username = $_SESSION["user"];
 }
 
-//unreserve
+// Handle unreserve
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['unreserve'])) {
     $isbn = $_POST['isbn'];
     $unreserve_sql = "UPDATE books SET Reserved = 0, ReservedBy = NULL WHERE ISBN = ? AND ReservedBy = ?";
@@ -22,13 +22,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['unreserve'])) {
     $stmt->close();
 }
 
-//reserved books
-$sql = "SELECT b.ISBN, b.BookTitle, b.Author, b.Edition, b.Year, c.CategoryDescription, b.ReservedBy FROM books b INNER JOIN category c ON b.Category = c.CategoryID WHERE b.ReservedBy = ?";
+// Pagination setup
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$records_per_page = 5;
+$offset = ($page - 1) * $records_per_page;
+
+// Get total record count
+$total_sql = "SELECT COUNT(*) AS total FROM books WHERE ReservedBy = ?";
+$total_stmt = $conn->prepare($total_sql);
+if ($total_stmt === false) {
+    die('MySQL prepare error: ' . $conn->error);
+}
+$total_stmt->bind_param('s', $username);
+$total_stmt->execute();
+$total_result = $total_stmt->get_result();
+$total_row = $total_result->fetch_assoc();
+$total_records = $total_row['total'];
+$total_pages = ceil($total_records / $records_per_page);
+
+// Fetch paginated results
+$sql = "SELECT b.ISBN, b.BookTitle, b.Author, b.Edition, b.Year, c.CategoryDescription, b.ReservedBy 
+        FROM books b 
+        INNER JOIN category c ON b.Category = c.CategoryID 
+        WHERE b.ReservedBy = ? 
+        LIMIT ?, ?";
 $stmt = $conn->prepare($sql);
 if ($stmt === false) {
     die('MySQL prepare error: ' . $conn->error);
 }
-$stmt->bind_param('s', $username);
+$stmt->bind_param('sii', $username, $offset, $records_per_page);
 $stmt->execute();
 $result = $stmt->get_result();
 ?>
@@ -42,9 +64,6 @@ $result = $stmt->get_result();
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <a href="index.php" class="back-button-link">
-        <button class="back-button">Back to Home</button>
-    </a>
     <header>
         <h1>Your Book Reservations</h1>
     </header>
@@ -84,8 +103,24 @@ $result = $stmt->get_result();
                     <?php endwhile; ?>
                 </tbody>
             </table>
+
+            <!-- Pagination -->
+            <div class="pagination">
+                <?php
+                $previous_disabled = ($page == 1) ? "disabled" : "";
+                echo "<a href='?page=" . ($page - 1) . "' class='pagination-button $previous_disabled'>Previous</a>";
+
+                for ($i = 1; $i <= $total_pages; $i++) {
+                    $active = ($i === $page) ? "active" : "";
+                    echo "<a href='?page=$i' class='pagination-button $active'>$i</a>";
+                }
+
+                $next_disabled = ($page == $total_pages) ? "disabled" : "";
+                echo "<a href='?page=" . ($page + 1) . "' class='pagination-button $next_disabled'>Next</a>";
+                ?>
+            </div>
         <?php else: ?>
-            <p>You have no reserved books at this time.</p>
+            <p class="no-books">You have no reserved books at this time.</p>
         <?php endif; ?>
     </div>
 

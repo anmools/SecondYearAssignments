@@ -128,9 +128,8 @@ h1 {
     color: #e3c3a1;
 }
 
-/* Styling for the Homepage Section */
 #homepage {
-    background-color: rgba(0, 0, 0, 0.6); /* Subtle background color */
+    background-color: rgba(0, 0, 0, 0.6);
     padding: 20px;
     border-radius: 10px;
     margin-top: 30px;
@@ -171,7 +170,6 @@ h1 {
     margin-top: 20px;
 }
 
-/* Style for the logout and other buttons */
 button {
     background-color: bisque;
     border: none;
@@ -183,9 +181,9 @@ button {
     font-size: 16px;
     margin-top: 10px;
     transition: background-color 0.3s;
-    width: 200px; /* Set a fixed width */
+    width: 200px;
     display: inline-block;
-    text-align: center; /* Center the text inside the button */
+    text-align: center; 
 }
 
 
@@ -193,22 +191,20 @@ button {
     display: flex;
     gap: 10px;
     flex-direction: column;
-    align-items: center; /* Center buttons horizontally */
+    align-items: center; 
 }
 
 
 button:hover {
-    background-color: #e3c3a1; /* Color on hover */
+    background-color: #e3c3a1;
 }
 
 
-/* Header style */
 header {
     text-align: center;
     margin-bottom: 20px;
 }
 
-/* Main content style */
 #homepage {
     padding: 20px;
 }
@@ -237,124 +233,178 @@ ul {
 }
 
 .logout-btn:hover {
-    background-color: #e3c3a1; /* Color on hover */
+    background-color: #e3c3a1; 
 }
 
-/* Position the logout button at the top-right corner */
 .logout-form {
     position: absolute;
-    top: 20px; /* Adjust this for the vertical position */
-    right: 20px; /* Adjust this for the horizontal position */
+    top: 20px;
+    right: 20px;
 }
 #booktable {
-    width: 90%; /* Fixed table width */
-    margin: 20px auto; /* Center the table */
-    border-collapse: collapse; /* No gaps between cells */
-    background-color: rgba(0, 0, 0, 0.6); /* Match form transparency */
-    color: white; /* White text for readability */
-    font-size: 16px; /* Font size for better visibility */
-    border: 1px solid rgba(255, 255, 255, 0.2); /* Match form border */
-    border-radius: 10px; /* Rounded corners for table */
-    box-shadow: 0 0 15px rgba(255, 203, 144, 0.5); /* Match form shadow */
-    backdrop-filter: blur(1px); /* Slight blur effect */
-    overflow: hidden; /* Clip content if overflowing */
-    table-layout: fixed; /* Prevent resizing of table columns */
+    width: 90%; 
+    margin: 20px auto;
+    border-collapse: collapse;
+    background-color: rgba(0, 0, 0, 0.6); 
+    color: white; 
+    font-size: 16px; 
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px; 
+    box-shadow: 0 0 15px rgba(255, 203, 144, 0.5); 
+    backdrop-filter: blur(1px);
+    overflow: hidden; 
+    table-layout: fixed; 
 }
 
-/* Styling for table headers */
 #booktable th {
-    background-color: rgba(255, 203, 144, 0.7); /* Warm color for headers */
-    color: black; /* Black header text for contrast */
+    background-color: rgba(255, 203, 144, 0.7); 
+    color: black;
     padding: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.2); /* Header borders */
+    border: 1px solid rgba(255, 255, 255, 0.2);
     text-align: left;
     font-weight: bold;
-    width: 12%; /* Set consistent width for each header */
+    width: 12%;
 }
 
-/* Styling for table rows */
 #booktable td {
     padding: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.2); /* Cell borders */
-    word-wrap: break-word; /* Ensure text wraps within the cell */
-    width: 12%; /* Match header width */
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    word-wrap: break-word; 
+    width: 12%; 
 }
 
-/* Highlight rows on hover */
 #booktable tr:hover {
-    background-color: rgba(255, 255, 255, 0.1); /* Subtle highlight */
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
-/* Ensure the container is responsive */
 #search-results {
     padding: 20px;
-    max-width: 95%; /* Ensure responsiveness */
+    max-width: 95%; 
     margin: auto;
     text-align: center;
 }
 
-/* Styling for the reserve button */
 .reserve-button {
-    background-color: bisque; /* Button color */
-    color: brown; /* Text color */
-    padding: 10px 20px; /* Space inside the button */
-    border: none; /* Remove default button border */
-    border-radius: 5px; /* Rounded corners */
-    font-size: 14px; /* Button text size */
-    cursor: pointer; /* Pointer cursor on hover */
-    transition: background-color 0.3s; /* Smooth color transition */
-    display: block; /* Ensure the button fills the cell width */
-    width: 100%; /* Full width */
-    box-sizing: border-box; /* Include padding/borders in width */
+    background-color: bisque; 
+    color: brown;
+    padding: 10px 20px; 
+    border: none; 
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer; 
+    transition: background-color 0.3s; 
+    display: block; 
+    width: 100%;
+    box-sizing: border-box; 
 }
 
-/* Button hover effect */
 .reserve-button:hover {
-    background-color: #e3c3a1; /* Lighter color on hover */
+    background-color: #e3c3a1; 
 }
 
-/* Pagination container */
 .pagination {
     display: flex;
-    justify-content: center; /* Center pagination links */
+    justify-content: center;
     align-items: center;
     margin-top: 20px;
-    gap: 10px; /* Add spacing between buttons */
-    position: relative; /* Fixed position relative to container */
+    gap: 10px;
+    position: relative; 
 }
 
-/* Pagination buttons */
 .pagination a {
-    text-decoration: none; /* Remove underline */
-    background-color: bisque; /* Button background */
-    color: brown; /* Text color */
-    padding: 8px 16px; /* Button padding */
-    border-radius: 5px; /* Rounded corners */
-    transition: background-color 0.3s ease; /* Smooth hover effect */
-    font-size: 14px; /* Button text size */
-    font-weight: bold; /* Bold text */
+    text-decoration: none;
+    background-color: bisque;
+    color: brown; 
+    padding: 8px 16px; 
+    border-radius: 5px; 
+    transition: background-color 0.3s ease; 
+    font-size: 14px; 
+    font-weight: bold; 
 }
 
 .pagination a.active {
-    background-color: #e3c3a1; /* Active button color */
-    color: brown; /* Text color for active button */
-    cursor: default; /* Disable pointer */
-    pointer-events: none; /* Prevent clicks */
+    background-color: #e3c3a1; 
+    color: brown; 
+    cursor: default; 
+    pointer-events: none; 
 }
 .pagination a.disabled {
-    background-color: #e3c3a1; /* Gray background for disabled button */
-    cursor: not-allowed; /* Disabled cursor style */
-    color: brown; /* Darker text for contrast */
-    pointer-events: none; /* Disable clicks */
+    background-color: #e3c3a1;  
+    cursor: not-allowed; 
+    color: brown; 
+    pointer-events: none; 
 }
 
 .pagination a:hover {
-    background-color: #e3c3a1; /* Hover color */
+    background-color: #e3c3a1; 
 }
 
 
-/* Ensure consistent spacing for pagination */
 .pagination {
-    margin-top: 20px; /* Spacing from the table */
-    padding-bottom: 10px; /* Consistent spacing at the bottom */
+    margin-top: 20px;
+    padding-bottom: 10px; 
+}
+#Header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    border-radius: 15px;  
+    color: white;  
+    position: relative;
+    margin: 10px;
+    z-index: 10;
+}
+.back-to-home .back-button {
+    padding: 10px 20px; 
+    background-color: bisque;
+    color: brown;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;  
+    box-shadow: 0 0 5px rgba(255, 203, 144, 0.3);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    font-size: 16px;  
+}
+
+.back-to-home .back-button:hover {
+    background-color: #e3c3a1;
+    box-shadow: 0 0 10px rgba(255, 203, 144, 0.5);
+}
+
+a {
+    text-decoration: none;  
+}
+
+
+.logout-button {
+    padding: 10px 20px; 
+    background-color: bisque;
+    color: brown;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 0 5px rgba(255, 203, 144, 0.3);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    font-size: 16px;  
+}
+
+.logout-button:hover {
+    background-color: #e3c3a1;
+    box-shadow: 0 0 10px rgba(255, 203, 144, 0.5);
+}
+
+.user-info p {
+    margin: 0;
+}
+
+#Header .back-to-home,
+#Header .user-info {
+    display: flex;
+    align-items: center;
+}
+
+.no-books {
+    color: bisque;
 }
