@@ -1,0 +1,410 @@
+body {
+    background-image: url("library.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+#title, #main-header {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 48px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+h1 {
+    text-align: center;
+    color: bisque;
+}
+
+#form {
+    background-color: rgba(0, 0, 0, 0.6);
+    width: 30%;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(255, 203, 144, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(1px);
+    color: white;
+    margin: auto;
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-height: 40vh; 
+    overflow-y: auto;         
+}
+
+.input-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.input-containerca {
+    position: relative;
+    display: flex;
+    flex-direction: column; 
+    margin-bottom: 20px;
+    width: 90%;
+    
+}
+
+.input-container span.material-icons, .input-containerca span.material-icons {
+    position: absolute;
+    left: 15px;
+    color: gray;
+    pointer-events: none;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.input-container input, .input-containerca input {
+    width: 100%;
+    padding: 10px 10px 10px 45px;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+    outline: none;
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease-in-out;
+}
+
+.input-container input:focus, .input-containerca input:focus {
+    background-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.input-containerca label {
+    display: block;
+    margin-bottom: 5px;
+    color: white;
+    font-size: 16px;
+}
+
+.input-containerca span.material-icons {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: gray;
+}
+
+#sbt, #create {
+    background-color: bisque;
+    border: none;
+    border-radius: 25px;
+    color: brown;
+    padding: 16px 32px;
+    text-decoration: none;
+    cursor: pointer;
+    width: 100%;
+    font-size: 16px;
+    margin-top: 10px;
+    transition: background-color 0.3s;
+}
+
+#sbt:hover , #create:hover{
+    background-color: #e3c3a1;
+}
+
+.new-account {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.new-account a {
+    color: bisque;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.new-account a:hover {
+    color: #e3c3a1;
+}
+
+#homepage {
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 30px;
+    width: 80%;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    color: bisque;
+    box-shadow: 0 0 10px rgba(255, 203, 144, 0.5);
+    backdrop-filter: blur(1px);
+}
+
+#homepage h2 {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 15px;
+    color: bisque;
+}
+
+#homepage ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    font-size: 1.2rem;
+    color: bisque;
+}
+
+#homepage li {
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+}
+
+#homepage p {
+    font-size: 1.2rem;
+    color: bisque;
+    text-align: center;
+    margin-top: 20px;
+}
+
+button {
+    background-color: bisque;
+    border: none;
+    border-radius: 25px;
+    color: brown;
+    padding: 16px 32px;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+    transition: background-color 0.3s;
+    width: 200px;
+    display: inline-block;
+    text-align: center; 
+}
+
+
+.button-container {
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    align-items: center; 
+}
+
+
+button:hover {
+    background-color: #e3c3a1;
+}
+
+
+header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#homepage {
+    padding: 20px;
+}
+
+h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+ul {
+    padding-left: 20px;
+    font-size: 18px;
+}
+
+.logout-btn {
+    background-color: bisque;
+    border: none;
+    border-radius: 25px;
+    color: brown;
+    padding: 16px 32px;
+    width: 100%;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.logout-btn:hover {
+    background-color: #e3c3a1; 
+}
+
+.logout-form {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+#booktable {
+    width: 90%; 
+    margin: 20px auto;
+    border-collapse: collapse;
+    background-color: rgba(0, 0, 0, 0.6); 
+    color: white; 
+    font-size: 16px; 
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px; 
+    box-shadow: 0 0 15px rgba(255, 203, 144, 0.5); 
+    backdrop-filter: blur(1px);
+    overflow: hidden; 
+    table-layout: fixed; 
+}
+
+#booktable th {
+    background-color: rgba(255, 203, 144, 0.7); 
+    color: black;
+    padding: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    text-align: left;
+    font-weight: bold;
+    width: 12%;
+}
+
+#booktable td {
+    padding: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    word-wrap: break-word; 
+    width: 12%; 
+}
+
+#booktable tr:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+#search-results {
+    padding: 20px;
+    max-width: 95%; 
+    margin: auto;
+    text-align: center;
+}
+
+.reserve-button {
+    background-color: bisque; 
+    color: brown;
+    padding: 10px 20px; 
+    border: none; 
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer; 
+    transition: background-color 0.3s; 
+    display: block; 
+    width: 100%;
+    box-sizing: border-box; 
+}
+
+.reserve-button:hover {
+    background-color: #e3c3a1; 
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    gap: 10px;
+    position: relative; 
+}
+
+.pagination a {
+    text-decoration: none;
+    background-color: bisque;
+    color: brown; 
+    padding: 8px 16px; 
+    border-radius: 5px; 
+    transition: background-color 0.3s ease; 
+    font-size: 14px; 
+    font-weight: bold; 
+}
+
+.pagination a.active {
+    background-color: #e3c3a1; 
+    color: brown; 
+    cursor: default; 
+    pointer-events: none; 
+}
+.pagination a.disabled {
+    background-color: #e3c3a1;  
+    cursor: not-allowed; 
+    color: brown; 
+    pointer-events: none; 
+}
+
+.pagination a:hover {
+    background-color: #e3c3a1; 
+}
+
+
+.pagination {
+    margin-top: 20px;
+    padding-bottom: 10px; 
+}
+#Header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    border-radius: 15px;  
+    color: white;  
+    position: relative;
+    margin: 10px;
+    z-index: 10;
+}
+.back-to-home .back-button {
+    padding: 10px 20px; 
+    background-color: bisque;
+    color: brown;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;  
+    box-shadow: 0 0 5px rgba(255, 203, 144, 0.3);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    font-size: 16px;  
+}
+
+.back-to-home .back-button:hover {
+    background-color: #e3c3a1;
+    box-shadow: 0 0 10px rgba(255, 203, 144, 0.5);
+}
+
+a {
+    text-decoration: none;  
+}
+
+
+.logout-button {
+    padding: 10px 20px; 
+    background-color: bisque;
+    color: brown;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 0 5px rgba(255, 203, 144, 0.3);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    font-size: 16px;  
+}
+
+.logout-button:hover {
+    background-color: #e3c3a1;
+    box-shadow: 0 0 10px rgba(255, 203, 144, 0.5);
+}
+
+.user-info p {
+    margin: 0;
+}
+
+#Header .back-to-home,
+#Header .user-info {
+    display: flex;
+    align-items: center;
+}
+
+.no-books {
+    color: bisque;
+}
