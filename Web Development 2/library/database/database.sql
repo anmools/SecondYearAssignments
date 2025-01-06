@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 06, 2024 at 02:10 AM
+-- Generation Time: Dec 06, 2024 at 12:27 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -43,9 +43,9 @@ CREATE TABLE `books` (
 --
 
 INSERT INTO `books` (`ISBN`, `BookTitle`, `Author`, `Edition`, `Year`, `Category`, `Reserved`, `ReservedBy`) VALUES
-('093-403992', 'Computers in Business', 'Alicia Oneill', 3, '1997', 4, 0, NULL),
-('23472-8729', 'Exploring Peru', 'Stephanie Birch', 4, '2005', 3, 0, NULL),
-('237-34823', 'Business Strategy', 'Joe Peppard', 2, '2002', 2, 0, NULL),
+('093-403992', 'Computers in Business', 'Alicia Oneill', 3, '1997', 4, 1, 'Anmool'),
+('23472-8729', 'Exploring Peru', 'Stephanie Birch', 4, '2005', 3, 1, 'Anmool'),
+('237-34823', 'Business Strategy', 'Joe Peppard', 2, '2002', 2, 1, 'Anmool'),
 ('23u8-923849', 'A guide to nutrition', 'John Thorpe', 2, '1997', 1, 0, NULL),
 ('2983-3494', 'Cooking for children', 'Anabelle Sharpe', 1, '2003', 7, 0, NULL),
 ('82n8-308', 'Computers for idiots', 'Susan O\'Neill', 5, '1998', 4, 0, NULL),
@@ -59,26 +59,61 @@ INSERT INTO `books` (`ISBN`, `BookTitle`, `Author`, `Edition`, `Year`, `Category
 ('993-004-00', 'My life in bits', 'John Smith', 1, '2001', 3, 0, NULL),
 ('9987-0039882', 'Shooting History', 'Jon Snow', 1, '2003', 1, 0, NULL);
 
---
--- Indexes for dumped tables
---
+-- --------------------------------------------------------
 
 --
--- Indexes for table `books`
---
-ALTER TABLE `books`
-  ADD PRIMARY KEY (`ISBN`),
-  ADD KEY `CategoryID_FK` (`Category`);
-
---
--- Constraints for dumped tables
+-- Table structure for table `category`
 --
 
+CREATE TABLE `category` (
+  `CategoryID` int(11) NOT NULL,
+  `CategoryDescription` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 --
--- Constraints for table `books`
+-- Dumping data for table `category`
 --
-ALTER TABLE `books`
-  ADD CONSTRAINT `CategoryID_FK` FOREIGN KEY (`Category`) REFERENCES `category` (`CategoryID`);
+
+INSERT INTO `category` (`CategoryID`, `CategoryDescription`) VALUES
+(1, 'Health'),
+(2, 'Business'),
+(3, 'Biography'),
+(4, 'Technology'),
+(5, 'Travel'),
+(6, 'Self-help'),
+(7, 'Cookery'),
+(8, 'Fiction');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `reservations`
+--
+
+CREATE TABLE `reservations` (
+  `ISBN` varchar(20) NOT NULL,
+  `Username` varchar(20) NOT NULL,
+  `ReservedDate` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `Username` varchar(20) NOT NULL,
+  `Email` varchar(100) NOT NULL,
+  `Pass` varchar(20) NOT NULL,
+  `Firstname` varchar(25) NOT NULL,
+  `Surname` varchar(25) NOT NULL,
+  `AddressLine1` varchar(150) NOT NULL,
+  `AddressLine2` varchar(150) NOT NULL,
+  `City` varchar(20) NOT NULL,
+  `Telephone` int(10) NOT NULL,
+  `Mobile` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
