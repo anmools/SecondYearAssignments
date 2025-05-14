@@ -1,0 +1,277 @@
+model Library
+
+enum BookStatus { available, unavailable, onreserve }
+enum CopyStatus { onLoan, onShelf, onReserve }
+enum ReserveStatus { Reserved, NotReserved } 
+
+class Book
+    attributes
+        title : String
+        author : String
+        status : BookStatus init = #available
+        no_copies : Integer init = 2
+        no_onshelf : Integer init = 2
+
+    operations
+        borrow()
+        begin
+            self.no_onshelf := self.no_onshelf - 1;
+            if (self.no_onshelf = 0) then 
+                self.status := #unavailable 
+            end
+        end      
+
+        return() 
+        begin
+            self.no_onshelf := self.no_onshelf + 1;
+            self.status := #available
+        end 
+        post: no_onshelf = no_onshelf@pre + 1
+
+    statemachines
+        psm States
+        states                         
+            newTitle : initial
+            available       [no_onshelf > 0]
+            unavailable     [no_onshelf = 0]
+        transitions
+            newTitle -> available  { create }
+            available -> unavailable { [no_onshelf = 1] borrow() }
+            available -> available { [no_onshelf > 1] borrow() }
+            available -> available { return() }
+            unavailable -> available { return() }
+        end
+end
+
+class Copy
+    attributes
+        status : CopyStatus init = #onShelf
+        reserved : ReserveStatus init = #NotReserved 
+
+    operations
+        return()
+        begin
+            self.status := #onShelf;
+            self.book.return()
+        end
+
+        reserve(m: Member)
+        begin
+            self.reserved := #Reserved;
+            WriteLine('This copy has been reserved. Please manually create and link a Reservation object.');
+end
+
+
+
+removeReservation(m: Member)
+begin
+    if self.reserved = #NotReserved then
+        WriteLine('This Copy does not have a reservation to remove');
+    else
+        self.reserved := #NotReserved;
+
+        for r in Reservation.allInstances do
+            if r.copy = self and r.status = #Reserved then
+                r.cancel();
+            end
+        end;
+
+        WriteLine('This book can now be reserved');
+    end
+end
+
+
+
+
+        borrow(m: Member)
+        begin
+            self.status := #onLoan;
+            self.book.borrow()
+        end
+
+        cancelReservation()
+        begin
+            for r in Reservation.allInstances do
+                if r.copy = self and r.status = #Reserved then
+                    r.cancel();
+                end
+            end;
+        end
+
+
+    statemachines
+        psm States
+        states                         
+            newCopy : initial
+            onLoan      
+            onShelf  
+            onReserve
+        transitions
+            newCopy -> onShelf  { create }
+            onShelf -> onLoan { borrow() }
+            onLoan -> onShelf { return() }
+            onShelf -> onReserve { reserve() }
+            onReserve -> onLoan { borrow() }
+            onReserve -> onShelf   { cancelReservation() }
+
+        end
+end    
+
+class Member 
+    attributes 
+        name : String
+        address : String
+        no_onloan : Integer
+        status : String
+        fine : Integer
+    operations
+        okToBorrow() : Boolean 
+        begin
+            if (self.no_onloan < 2) then
+                result := true
+            else 
+                result := false
+            end
+        end
+
+        borrow(c : Copy)
+        begin
+            declare ok : Boolean;
+            ok := self.okToBorrow();
+            if( ok ) then
+                insert(self, c) into HasBorrowed;
+                self.no_onloan := self.no_onloan + 1;
+                c.borrow(self)
+            end
+        end           
+
+        return(c : Copy)
+        begin
+            delete(self, c) from HasBorrowed;
+            self.no_onloan := self.no_onloan - 1;
+            c.removeReservation(self); 
+            c.return()
+        end
+
+
+        viewBorrowed()
+        begin
+            for c in self.borrowed do
+                WriteLine(c.book.title);
+            end;
+        end
+
+        reserve(c: Copy)
+        begin
+            c.reserve(self)
+        end
+
+        removeReservation(c: Copy)
+        begin
+            c.removeReservation(self)
+        end
+        
+        payFine(amount: Integer)
+        begin
+            if amount > 0 and self.fine > 0 then
+                if amount >= self.fine then
+                    self.fine := 0
+                else
+                    self.fine := self.fine - amount
+                end
+            else
+                WriteLine('Cannot process payment: no fine or invalid amount');
+        end
+        end
+
+        renewLoan(c: Copy)
+            pre hasCopy: self.borrowed->includes(c)
+            pre copyIsOnLoan: c.status = #onLoan
+            post stillHasCopy: self.borrowed->includes(c)
+
+end    
+
+class Reservation
+    attributes
+        status : ReserveStatus init = #NotReserved
+
+    operations
+    cancel()
+    begin
+        self.status := #NotReserved;
+        self.copy.reserved := #NotReserved;
+
+        if self.copy.status = #onReserve then
+            self.copy.status := #onShelf;
+        end;
+
+        WriteLine('Reservation cancelled');
+        delete (self, self.copy) from ForCopy;
+        delete (self, self.member) from ReservedBy;
+    end
+
+
+
+
+
+    statemachines
+        psm ReserveLifecycle
+        states
+            NotReserved : initial
+            Reserved
+            Cancelled
+        transitions
+            NotReserved -> Reserved { create }
+            Reserved -> Cancelled { [status = #Reserved] cancel() }
+        end
+end
+
+
+
+
+association HasBorrowed between
+    Member[0..1] role borrower
+    Copy[*] role borrowed
+end
+
+association CopyOf between
+    Copy[1..*] role copies
+    Book[1] role book
+end
+
+association ForCopy between
+    Reservation[1] role reservation
+    Copy[1] role copy
+end
+
+
+association ReservedBy between
+    Reservation[1] role reservation
+    Member[1] role member
+end
+
+
+constraints
+
+context Member::borrow(c: Copy) 
+    pre limit: self.no_onloan < 2
+    pre cond1: self.borrowed->excludes(c)
+    post cond2: self.borrowed->includes(c)
+
+context Copy  
+    inv statusInv: self.status = #onShelf or self.status = #onLoan or self.status = #onReserve
+
+context Member
+    inv forbidden: self.borrowed.book.title->excludes('Staff Logs')
+
+context Member::reserve(c: Copy)
+pre noReservation: Reservation.allInstances->select(r | r.copy = c)->isEmpty()
+
+context Copy::reserve(m: Member)
+pre notReserved: self.reserved = #NotReserved
+pre notAlreadyBorrowed: self.status = #onShelf
+
+context Member::removeReservation(c: Copy)
+pre hasReservation: Reservation.allInstances->exists(r | r.copy = c and r.member = self)
+post noReservation: Reservation.allInstances->select(r | r.copy = c and r.member = self)->isEmpty()
+

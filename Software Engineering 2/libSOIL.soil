@@ -1,0 +1,53 @@
+!new Member('joe')
+!joe.name := 'Joe Bloggs'
+!joe.address := '123 Main Street'
+!joe.no_onloan := 0
+!joe.status := 'OK'
+!joe.fine := 20
+
+!new Member('tom')
+!tom.name := 'Tom Thumb'
+!tom.address := '456 Elm Street'
+!tom.no_onloan := 0
+!tom.status := 'OK'
+!tom.fine := 10
+
+!new Book('bible')
+!bible.title := 'Holy Bible'
+!bible.author := 'God Above'
+!bible.no_copies := 2
+!bible.no_onshelf := 2
+
+!new Book('staff')
+!staff.title := 'Staff Logs'
+!staff.author := 'Manager'
+!staff.no_copies := 1
+!staff.no_onshelf := 1
+
+!new Copy('c1')
+!insert (c1, bible) into CopyOf
+
+!new Copy('c2')
+!insert (c2, bible) into CopyOf
+
+!new Copy('c3')
+!insert (c3, staff) into CopyOf
+
+!joe.borrow(c1)          
+!tom.borrow(c2)         
+!joe.return(c1)        
+
+!joe.reserve(c1)        
+!new Reservation('r1')
+!insert (r1, c1) into ForCopy
+!insert (r1, joe) into ReservedBy
+!r1.status := #Reserved
+
+!r1.cancel()
+
+!joe.payFine(15)        
+!tom.payFine(10)        
+
+!joe.borrow(c1)        
+!openter joe renewLoan(c1)
+!opexit
